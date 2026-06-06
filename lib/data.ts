@@ -15,7 +15,7 @@ export const LAB = {
     zh: "北京航空航天大学人工智能学院",
   },
   affiliationUrl: "https://iai.buaa.edu.cn/",
-  email: "tangshaoting@buaa.edu.cn",
+  email: "@buaa.edu.cn", // shared email??
   founded: 2016,
 };
 
@@ -47,7 +47,7 @@ export const MEMBERS: Member[] = [
       en: ["Complex Networks", "Social Big Data", "Swarm Intelligence", "Brain Cognition-Driven AI"],
       zh: ["复杂网络", "社会大数据", "群体智能", "脑认知驱动的人工智能"],
     },
-    email: "tangshaoting@buaa.edu.cn",
+    email: "@buaa.edu.cn", // shared email??
   },
   {
     slug: "wang-xin",
@@ -175,43 +175,16 @@ export interface NewsItem {
 
 export const NEWS: NewsItem[] = [
   {
-    date: "2025-05",
-    title: { en: "Paper accepted at PNAS", zh: "论文被 PNAS 接收" },
-    content: {
-      en: "Our work on cooperative dynamics in social networks has been accepted by the Proceedings of the National Academy of Sciences.",
-      zh: "我们关于社交网络合作动力学的研究被美国国家科学院院刊（PNAS）接收。",
-    },
-    tag: { en: "Publication", zh: "发表" },
-  },
-  {
-    date: "2025-03",
-    title: { en: "NSFC Distinguished Young Scientist Fund awarded", zh: "获批国家杰出青年科学基金" },
-    content: {
-      en: "Prof. Tang Shaoting has been awarded the National Distinguished Young Scientist Fund by NSFC.",
-      zh: "唐绍婷教授荣获国家自然科学基金杰出青年科学基金资助。",
-    },
-    tag: { en: "Award", zh: "获奖" },
-  },
-  {
-    date: "2024-12",
+    date: "2025-07",
     title: {
-      en: "2024 International Conference on Evolutionary Game Theory & AI",
-      zh: "2024 演化博弈理论与人工智能国际会议",
+      en: "3rd International Conference on Evolutionary Game Theory & AI (EGAI 2025) Successfully Held",
+      zh: '第三届"演化博弈论与人工智能国际会议"（EGAI 2025）成功举办',
     },
     content: {
-      en: "Prof. Tang served as General Chair of the 2024 International Conference on Evolutionary Game Theory & AI.",
-      zh: "唐绍婷教授担任 2024 年演化博弈理论与人工智能国际会议大会主席。",
+      en: "EGAI 2025 was held July 17–19 at Beihang University's Hangzhou campus, drawing 110+ scholars from 40+ institutions. Topics spanned evolutionary game theory, reinforcement learning, LLMs, brain science, and social intelligence.",
+      zh: "第三届演化博弈论与人工智能国际会议于 2025 年 7 月 17—19 日在北京航空航天大学杭州校区召开，吸引了来自 40 余所机构的 110 余位学者参会，围绕演化博弈论与强化学习、大语言模型、脑科学及社会智能的交叉前沿展开深入研讨。",
     },
     tag: { en: "Event", zh: "活动" },
-  },
-  {
-    date: "2024-06",
-    title: { en: "Recruiting PhD students for 2025", zh: "2025 年博士研究生招募" },
-    content: {
-      en: "We are actively recruiting motivated PhD students with interests in AI, complex systems, or game theory. Contact us to learn more.",
-      zh: "我们正积极招募对人工智能、复杂系统或博弈论有热情的博士研究生，欢迎联系咨询。",
-    },
-    tag: { en: "Recruiting", zh: "招募" },
   },
 ];
 
