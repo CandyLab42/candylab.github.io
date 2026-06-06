@@ -43,37 +43,43 @@ export default function Publications({ lang }: { lang: Lang }) {
     section: lang === "en" ? "Output" : "成果",
     heading: lang === "en" ? "Selected Publications" : "代表性论文",
     viewAll: lang === "en" ? "View all on Google Scholar →" : "在 Google Scholar 查看全部 →",
-    pdf: "PDF",
     doi: "DOI",
+    pdf: "PDF",
   };
 
   return (
-    <section id="publications" className="py-24">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-14 flex items-end justify-between gap-4 flex-wrap">
+    <section id="publications" className="py-24" style={{ background: "var(--color-surface)" }}>
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Section heading */}
+        <div className="mb-16 flex items-end justify-between gap-4 flex-wrap">
           <div>
             <p
-              className="text-xs font-medium uppercase tracking-widest mb-3"
-              style={{ color: "var(--color-buaa)" }}
+              className="text-xs font-bold uppercase tracking-widest mb-4"
+              style={{
+                fontFamily: "var(--font-montserrat, var(--font-heading))",
+                color: "var(--color-accent)",
+                letterSpacing: "0.15em",
+              }}
             >
               {t.section}
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "var(--color-ink)" }}>
+            <h2 className="section-heading text-4xl font-bold" style={{ color: "var(--color-navy)" }}>
               {t.heading}
             </h2>
           </div>
           <a
             href="#"
-            className="text-sm transition-colors duration-150 shrink-0"
-            style={{ color: "var(--color-ink-muted)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-buaa)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-ink-muted)")}
+            className="animated-underline text-sm font-medium shrink-0"
+            style={{
+              fontFamily: "var(--font-montserrat, var(--font-heading))",
+              color: "var(--color-text-muted)",
+            }}
           >
             {t.viewAll}
           </a>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-px">
           {SAMPLE_PUBS.map((pub, i) => (
             <motion.div
               key={i}
@@ -81,54 +87,60 @@ export default function Publications({ lang }: { lang: Lang }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.07, duration: 0.45, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="flex gap-5 p-6 rounded-2xl border transition-all duration-200"
-              style={{ background: "white", borderColor: "var(--color-border)" }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--color-buaa)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(0,48,135,0.06)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
-              }}
+              className="flex gap-6 p-6 transition-colors duration-150"
+              style={{ background: "white" }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#f0f6ff")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "white")}
             >
-              {/* Year badge */}
+              {/* Year */}
               <div
-                className="shrink-0 text-xs font-mono font-medium px-2.5 py-1 rounded self-start mt-0.5"
-                style={{ background: "var(--color-buaa-muted)", color: "var(--color-buaa)" }}
+                className="shrink-0 text-xs font-bold tabular-nums pt-0.5"
+                style={{
+                  fontFamily: "var(--font-montserrat, var(--font-heading))",
+                  color: "var(--color-accent)",
+                  minWidth: "2.5rem",
+                }}
               >
                 {pub.year}
               </div>
 
               <div className="min-w-0 flex-1">
-                <h3 className="text-sm font-medium mb-1 leading-snug" style={{ color: "var(--color-ink)" }}>
+                {/* Title with animated underline */}
+                <h3
+                  className="animated-underline text-sm font-semibold mb-1.5 leading-snug inline"
+                  style={{
+                    fontFamily: "var(--font-montserrat, var(--font-heading))",
+                    color: "var(--color-navy)",
+                  }}
+                >
                   {pub.title}
                 </h3>
-                <p className="text-sm mb-2" style={{ color: "var(--color-ink-secondary)" }}>
+                <p className="text-sm mt-1 mb-2" style={{ color: "var(--color-text-secondary)" }}>
                   {pub.authors}
                 </p>
                 <div className="flex items-center gap-3 flex-wrap">
                   <span
-                    className="text-xs font-medium px-2 py-0.5 rounded"
-                    style={{ background: "var(--color-surface)", color: "var(--color-ink-secondary)", border: "1px solid var(--color-border)" }}
+                    className="text-xs font-bold uppercase px-2.5 py-1"
+                    style={{
+                      background: "var(--color-navy)",
+                      color: "white",
+                      fontFamily: "var(--font-montserrat, var(--font-heading))",
+                      letterSpacing: "0.05em",
+                    }}
                   >
                     {pub.venue_short}
                   </span>
                   <a
                     href={pub.doi}
-                    className="text-xs transition-colors duration-150"
-                    style={{ color: "var(--color-ink-muted)" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-buaa)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-ink-muted)")}
+                    className="animated-underline text-xs"
+                    style={{ color: "var(--color-text-muted)" }}
                   >
                     {t.doi} ↗
                   </a>
                   <a
                     href={pub.doi}
-                    className="text-xs transition-colors duration-150"
-                    style={{ color: "var(--color-ink-muted)" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-buaa)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-ink-muted)")}
+                    className="animated-underline text-xs"
+                    style={{ color: "var(--color-text-muted)" }}
                   >
                     {t.pdf} ↗
                   </a>

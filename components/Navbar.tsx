@@ -1,12 +1,30 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { NAV, LAB, type Lang } from "@/lib/data";
 
 interface NavbarProps {
   lang: Lang;
   onLangChange: (l: Lang) => void;
+}
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <a
+      href={href}
+      className="px-4 h-16 flex items-center text-sm font-semibold transition-all duration-150"
+      style={{
+        fontFamily: "var(--font-montserrat, var(--font-heading))",
+        color: hovered ? "var(--color-navy)" : "var(--color-text-secondary)",
+        boxShadow: hovered ? "inset 0 -7px 0 #0099ff" : "none",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {label}
+    </a>
+  );
 }
 
 export default function Navbar({ lang, onLangChange }: NavbarProps) {
@@ -23,96 +41,93 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 bg-white"
       style={{
-        background: scrolled ? "rgba(255,255,255,0.95)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid #e5e5e5" : "1px solid transparent",
+        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.08)" : "0 1px 0 #eeeeee",
       }}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#top"
-          className="font-semibold text-base tracking-tight"
-          style={{ color: "var(--color-buaa)" }}
-        >
-          {LAB.name[lang]}
+        <a href="#top" className="flex items-center gap-3">
+          <div
+            className="w-8 h-8 flex items-center justify-center text-xs font-extrabold shrink-0"
+            style={{
+              background: "var(--color-navy)",
+              color: "white",
+              fontFamily: "var(--font-montserrat, var(--font-heading))",
+            }}
+          >
+            BU
+          </div>
+          <span
+            className="font-bold text-sm tracking-tight"
+            style={{ fontFamily: "var(--font-montserrat, var(--font-heading))", color: "var(--color-navy)" }}
+          >
+            {LAB.name[lang]}
+          </span>
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center">
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm transition-colors duration-150"
-              style={{ color: "var(--color-ink-secondary)" }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--color-buaa)")}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--color-ink-secondary)")}
-            >
-              {l.label}
-            </a>
+            <NavLink key={l.href} href={l.href} label={l.label} />
           ))}
-          {/* Lang toggle */}
           <button
             onClick={() => onLangChange(lang === "en" ? "zh" : "en")}
-            className="text-xs px-3 py-1.5 rounded-full border transition-colors duration-150"
+            className="ml-4 pl-4 text-xs font-bold uppercase tracking-wider transition-colors duration-150"
             style={{
-              borderColor: "var(--color-buaa)",
-              color: "var(--color-buaa)",
+              fontFamily: "var(--font-montserrat, var(--font-heading))",
+              color: "var(--color-text-muted)",
+              borderLeft: "1px solid #eeeeee",
             }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-navy)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-text-muted)")}
           >
             {lang === "en" ? "中文" : "EN"}
           </button>
         </div>
 
-        {/* Mobile menu button */}
+        {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2"
+          className="md:hidden flex flex-col justify-center gap-1.5 p-2 w-10 h-10"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          <span className="block w-5 h-px mb-1.5 transition-all" style={{ background: "var(--color-ink)" }} />
-          <span className="block w-5 h-px mb-1.5 transition-all" style={{ background: "var(--color-ink)" }} />
-          <span className="block w-5 h-px transition-all" style={{ background: "var(--color-ink)" }} />
+          <span className="block h-px w-6" style={{ background: "var(--color-text)" }} />
+          <span className="block h-px w-6" style={{ background: "var(--color-text)" }} />
+          <span className="block h-px w-6" style={{ background: "var(--color-text)" }} />
         </button>
       </nav>
 
       {/* Mobile drawer */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden border-t overflow-hidden"
-            style={{ background: "white", borderColor: "var(--color-border)" }}
-          >
-            <div className="px-6 py-4 flex flex-col gap-4">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="text-sm"
-                  style={{ color: "var(--color-ink-secondary)" }}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {l.label}
-                </a>
-              ))}
-              <button
-                onClick={() => { onLangChange(lang === "en" ? "zh" : "en"); setMenuOpen(false); }}
-                className="text-xs self-start px-3 py-1.5 rounded-full border"
-                style={{ borderColor: "var(--color-buaa)", color: "var(--color-buaa)" }}
+      {menuOpen && (
+        <div className="md:hidden border-t bg-white" style={{ borderColor: "#eeeeee" }}>
+          <div className="max-w-7xl mx-auto px-6 py-2 flex flex-col">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="py-3 text-sm font-semibold border-b"
+                style={{
+                  fontFamily: "var(--font-montserrat, var(--font-heading))",
+                  color: "var(--color-text)",
+                  borderColor: "#eeeeee",
+                }}
+                onClick={() => setMenuOpen(false)}
               >
-                {lang === "en" ? "中文" : "EN"}
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                {l.label}
+              </a>
+            ))}
+            <button
+              onClick={() => { onLangChange(lang === "en" ? "zh" : "en"); setMenuOpen(false); }}
+              className="mt-4 mb-2 text-xs font-bold uppercase self-start"
+              style={{ fontFamily: "var(--font-montserrat, var(--font-heading))", color: "var(--color-text-muted)" }}
+            >
+              {lang === "en" ? "中文" : "EN"}
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

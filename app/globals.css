@@ -1,17 +1,29 @@
 @import "tailwindcss";
 
 @theme {
+  /* ── PLI Princeton-inspired color system ───────────────────────────────── */
+  --color-navy: #000066;       /* primary dark navy */
+  --color-accent: #0099ff;     /* mid blue accent (hover, underlines, bars) */
+  --color-purple: #5252D8;     /* medium purple-blue (callout sections) */
+  --color-periwinkle: #6161FF; /* soft periwinkle (dividers, circles) */
+  --color-lavender: #E0E0FF;   /* very light lavender (selection bg) */
+  --color-text: #212121;       /* near-black body text */
+  --color-text-secondary: #414141;
+  --color-text-muted: #717171;
+  --color-surface: #f7f7f7;
+  --color-border: #d0d0d0;
+
+  /* ── Original BUAA palette (preserved for reference) ────────────────────
   --color-buaa: #003087;
   --color-buaa-light: #1a4fa0;
   --color-buaa-muted: #e8eef7;
   --color-ink: #111111;
   --color-ink-secondary: #555555;
   --color-ink-muted: #888888;
-  --color-border: #e5e5e5;
-  --color-surface: #fafafa;
+  ── end BUAA palette ─────────────────────────────────────────────────── */
 
-  --font-sans: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: "Georgia", "Noto Serif SC", serif;
+  --font-sans: "Roboto", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: "Montserrat", "Noto Sans SC", sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -37,14 +49,14 @@ html {
 
 body {
   background: #ffffff;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
+  color: var(--color-text);
+  font-family: var(--font-roboto, var(--font-sans));
   line-height: 1.6;
 }
 
 ::selection {
-  background: var(--color-buaa-muted);
-  color: var(--color-buaa);
+  background: var(--color-lavender);
+  color: var(--color-navy);
 }
 
 a {
@@ -53,6 +65,74 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.02em;
+  font-family: var(--font-montserrat, var(--font-heading));
   line-height: 1.2;
+}
+
+/* Section heading with 50px × 3px accent bar (PLI style) */
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--color-accent);
+  margin-top: 0.75rem;
+}
+
+/* Primary button — white slides in from left on hover */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 32px;
+  font-family: var(--font-montserrat, var(--font-heading));
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-image: linear-gradient(to right, white 50%, var(--color-navy) 50%);
+  background-size: 200% 100%;
+  background-position: right center;
+  color: white;
+  transition: background-position 0.35s ease, color 0.35s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-position: left center;
+  color: var(--color-navy);
+}
+
+/* Secondary button */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 32px;
+  font-family: var(--font-montserrat, var(--font-heading));
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 2px solid var(--color-accent);
+  background: transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+}
+
+/* Animated underline — accent grows from 0 → 100% on hover */
+.animated-underline {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.3s ease;
+}
+
+.animated-underline:hover {
+  background-size: 100% 2px;
 }

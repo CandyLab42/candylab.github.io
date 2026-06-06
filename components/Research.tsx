@@ -3,29 +3,25 @@
 import { motion } from "framer-motion";
 import { RESEARCH, type Lang } from "@/lib/data";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  }),
-};
-
 export default function Research({ lang }: { lang: Lang }) {
   return (
-    <section id="research" className="py-24" style={{ background: "var(--color-surface)" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-14">
+    <section id="research" className="py-24" style={{ background: "white" }}>
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Section label + heading */}
+        <div className="mb-16">
           <p
-            className="text-xs font-medium uppercase tracking-widest mb-3"
-            style={{ color: "var(--color-buaa)" }}
+            className="text-xs font-bold uppercase tracking-widest mb-4"
+            style={{
+              fontFamily: "var(--font-montserrat, var(--font-heading))",
+              color: "var(--color-accent)",
+              letterSpacing: "0.15em",
+            }}
           >
             {lang === "en" ? "What We Do" : "研究领域"}
           </p>
           <h2
-            className="text-3xl md:text-4xl font-bold"
-            style={{ color: "var(--color-ink)" }}
+            className="section-heading text-4xl font-bold"
+            style={{ color: "var(--color-navy)" }}
           >
             {lang === "en" ? "Research Areas" : "研究方向"}
           </h2>
@@ -35,43 +31,38 @@ export default function Research({ lang }: { lang: Lang }) {
           {RESEARCH.map((area, i) => (
             <motion.div
               key={area.id}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              variants={fadeUp}
-              className="group p-8 rounded-2xl border transition-all duration-300 cursor-default"
+              transition={{ delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+              className="p-8 transition-all duration-250"
               style={{
-                background: "white",
-                borderColor: "var(--color-border)",
+                background: "var(--color-surface)",
+                boxShadow: "0 0 0 1px transparent",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--color-buaa)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,48,135,0.08)";
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  "0 0 0 2px #0099ff, 0 8px 32px rgba(0,0,102,0.08)";
+                (e.currentTarget as HTMLElement).style.background = "white";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px transparent";
+                (e.currentTarget as HTMLElement).style.background = "var(--color-surface)";
               }}
             >
-              {/* Number */}
-              <div
-                className="text-4xl font-bold mb-4 opacity-10 select-none"
-                style={{ color: "var(--color-buaa)" }}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </div>
-
               <h3
-                className="text-lg font-semibold mb-3"
-                style={{ color: "var(--color-ink)" }}
+                className="text-lg font-bold mb-3"
+                style={{
+                  fontFamily: "var(--font-montserrat, var(--font-heading))",
+                  color: "var(--color-navy)",
+                }}
               >
                 {area.title[lang]}
               </h3>
 
               <p
-                className="text-sm leading-relaxed mb-5"
-                style={{ color: "var(--color-ink-secondary)" }}
+                className="text-sm leading-relaxed mb-6"
+                style={{ color: "var(--color-text-secondary)", lineHeight: 1.75 }}
               >
                 {area.description[lang]}
               </p>
@@ -81,8 +72,12 @@ export default function Research({ lang }: { lang: Lang }) {
                 {area.keywords[lang].map((kw) => (
                   <span
                     key={kw}
-                    className="text-xs px-2.5 py-1 rounded-md"
-                    style={{ background: "var(--color-buaa-muted)", color: "var(--color-buaa)" }}
+                    className="text-xs font-medium px-3 py-1"
+                    style={{
+                      background: "rgba(0,153,255,0.08)",
+                      color: "var(--color-navy)",
+                      border: "1px solid rgba(0,153,255,0.2)",
+                    }}
                   >
                     {kw}
                   </span>

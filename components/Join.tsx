@@ -25,48 +25,85 @@ export default function Join({ lang }: { lang: Lang }) {
   return (
     <section
       id="join"
-      className="py-24"
-      style={{ background: "var(--color-buaa)" }}
+      className="relative"
+      style={{ background: "var(--color-navy)" }}
     >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="max-w-2xl">
-          <p className="text-xs font-medium uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>
-            {t.section}
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: "white" }}>
-            {t.heading}
-          </h2>
-          <p className="text-base leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.8)" }}>
-            {t.body}
-          </p>
+      {/* Diagonal top edge: white triangle masks the top-left, creating a slanted transition */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "80px",
+          background: "white",
+          clipPath: "polygon(0 0, 100% 0, 0 100%)",
+        }}
+      />
 
-          {/* Position pills */}
-          <div className="flex flex-wrap gap-3 mb-8">
-            {t.positions.map((p) => (
-              <span
-                key={p}
-                className="text-sm px-4 py-2 rounded-full border"
-                style={{ borderColor: "rgba(255,255,255,0.3)", color: "white" }}
-              >
-                {p}
-              </span>
-            ))}
-          </div>
+      <div className="relative max-w-7xl mx-auto px-6" style={{ paddingTop: "7rem", paddingBottom: "5rem" }}>
+        <p
+          className="text-xs font-bold uppercase tracking-widest mb-4"
+          style={{
+            fontFamily: "var(--font-montserrat, var(--font-heading))",
+            color: "rgba(255,255,255,0.4)",
+            letterSpacing: "0.18em",
+          }}
+        >
+          {t.section}
+        </p>
 
-          {/* Contact CTA */}
-          <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.7)" }}>
-            {t.cta}
-          </p>
-          <a
-            href={`mailto:${t.contact}`}
-            className="text-lg font-medium transition-opacity duration-150"
-            style={{ color: "white" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.75")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-          >
-            {t.contact}
-          </a>
+        <h2
+          className="text-4xl font-extrabold mb-6"
+          style={{
+            color: "white",
+            maxWidth: "600px",
+          }}
+        >
+          {t.heading}
+        </h2>
+
+        <p
+          className="text-base leading-relaxed mb-8"
+          style={{ color: "rgba(255,255,255,0.7)", maxWidth: "580px", lineHeight: 1.75 }}
+        >
+          {t.body}
+        </p>
+
+        {/* Position pills */}
+        <div className="flex flex-wrap gap-3 mb-10">
+          {t.positions.map((p) => (
+            <span
+              key={p}
+              className="text-sm font-semibold px-5 py-2"
+              style={{
+                fontFamily: "var(--font-montserrat, var(--font-heading))",
+                border: "1.5px solid rgba(0,153,255,0.45)",
+                color: "rgba(255,255,255,0.85)",
+              }}
+            >
+              {p}
+            </span>
+          ))}
         </div>
+
+        {/* Contact CTA */}
+        <p
+          className="text-sm mb-2"
+          style={{ color: "rgba(255,255,255,0.5)" }}
+        >
+          {t.cta}
+        </p>
+        <a
+          href={`mailto:${t.contact}`}
+          className="text-lg font-bold transition-opacity duration-150"
+          style={{ color: "var(--color-accent)", fontFamily: "var(--font-montserrat, var(--font-heading))" }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.75")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+        >
+          {t.contact}
+        </a>
       </div>
     </section>
   );

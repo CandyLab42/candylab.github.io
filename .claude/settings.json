@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:nlp.cs.princeton.edu)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:researchcomputing.princeton.edu)"
+    ]
+  }
+}
